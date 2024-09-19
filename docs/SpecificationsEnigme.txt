@@ -1,0 +1,58 @@
+Spécifications détaillées de la fonctionnalité Énigme.md
+
+# Fonctionnalité Énigme
+
+## Objectif
+Stimuler la réflexion et la résolution de problèmes chez l'enfant à travers des énigmes complexes, tout en fournissant un système d'aide interactif.
+
+## Composants LLM
+1. LLM Générateur d'énigmes :
+   - Crée des énigmes complexes adaptées à l'âge de l'enfant
+   - Fournit la réponse au second LLM
+
+2. LLM Assistant d'indices :
+   - Reçoit l'énigme et la réponse
+   - Interagit avec l'enfant pour fournir des indices sans révéler la réponse
+
+## Interface utilisateur
+- Affichage clair de l'énigme
+- Zone de chat pour interagir avec le LLM Assistant d'indices
+- Bouton pour soumettre une réponse
+- Option pour demander une nouvelle énigme
+
+## Flux de fonctionnement
+1. L'enfant demande une nouvelle énigme
+2. Le LLM Générateur crée une énigme et sa réponse
+3. L'énigme est présentée à l'enfant et au LLM Assistant
+4. L'enfant peut interagir avec le LLM Assistant pour obtenir des indices
+5. L'enfant soumet sa réponse quand il pense avoir résolu l'énigme
+
+## Interaction avec le LLM Assistant
+- L'enfant peut poser des questions librement
+- Le LLM Assistant fournit des indices progressifs sans donner la réponse directe
+- Utilisation d'un système de reconnaissance vocale pour les questions de l'enfant
+- Réponses du LLM Assistant fournies en texte et en audio (TTS)
+
+## Niveaux de difficulté
+- Proposer différents niveaux de difficulté pour les énigmes
+- Adapter la complexité des indices en fonction du niveau choisi
+
+## Système de points et récompenses
+- Attribuer des points en fonction de la difficulté de l'énigme et du nombre d'indices utilisés
+- Débloquer des badges ou des récompenses virtuelles pour encourager la persévérance
+
+## Accessibilité
+- Option de lecture à voix haute de l'énigme et des indices
+- Interface adaptable pour différents groupes d'âge et niveaux de lecture
+
+## Sécurité et contrôle parental
+- Filtrage du contenu des énigmes et des indices pour garantir leur caractère approprié
+- Option pour les parents de définir des limites de temps ou de nombre d'énigmes par jour
+
+## Intégration avec d'autres fonctionnalités
+- Possibilité de lier les thèmes des énigmes aux autres modes (quiz, conversation)
+- Option pour partager les énigmes résolues dans le profil de l'enfant
+
+## Analyse et amélioration
+- Collecter des données anonymes sur les types d'énigmes les plus appréciés
+- Analyser les patterns de résolution pour améliorer la génération d'énigmes et d'indices

@@ -1,0 +1,62 @@
+Cas d'utilisation pour la fonctionnalité Énigme
+
+Accès à la fonctionnalité Énigme
+
+ L'enfant accède à la page Énigme depuis le menu principal
+ L'enfant choisit un niveau de difficulté (facile, moyen, difficile)
+
+
+Présentation de l'énigme
+
+ Le LLM1 génère une énigme adaptée au niveau choisi
+ L'énigme est affichée à l'écran et lue à voix haute (TTS)
+ Le LLM2 reçoit l'énigme et sa réponse pour préparer les indices
+
+
+Interaction pour obtenir des indices
+
+ L'enfant peut poser des questions vocales au LLM2 pour obtenir des indices
+ Le LLM2 répond vocalement, fournissant des indices sans révéler la réponse
+ Les indices sont également affichés à l'écran sous forme de texte
+
+
+Tentative de résolution
+
+ L'enfant peut proposer une réponse à tout moment en utilisant la reconnaissance vocale
+ Le système vérifie si la réponse vocale correspond à la solution de l'énigme
+
+
+Feedback et progression
+
+ Si la réponse est correcte, l'enfant reçoit une confirmation positive et gagne des XP
+ Si la réponse est incorrecte, l'enfant est encouragé à réessayer ou à demander plus d'indices
+
+
+Système de progression
+
+ L'enfant gagne des XP en résolvant des énigmes
+ L'enfant peut voir sa progression (niveau, XP gagnés) après chaque énigme résolue
+
+
+Nouvelle énigme ou changement de difficulté
+
+ Après avoir résolu une énigme, l'enfant peut choisir d'en essayer une nouvelle
+ L'enfant peut changer le niveau de difficulté à tout moment
+
+
+Aide et accessibilité
+
+ L'enfant peut demander à réécouter l'énigme à tout moment
+ L'application offre des options pour ajuster le volume et la vitesse de lecture
+
+
+Navigation et flexibilité
+
+ L'enfant peut quitter la session d'énigmes à tout moment et y revenir plus tard
+ L'application garde en mémoire les énigmes résolues pour éviter les répétitions
+
+
+Interaction continue avec le LLM2
+
+ Le LLM2 peut poser des questions à l'enfant pour stimuler sa réflexion
+ Le LLM2 adapte ses indices en fonction des questions précédentes de l'enfant
