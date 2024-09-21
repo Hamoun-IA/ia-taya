@@ -118,6 +118,9 @@ function EnigmePage() {
     const reponseNormalisee = normaliserReponse(reponseUtilisateur);
     const solutionNormalisee = normaliserReponse(solution);
 
+    console.log('Réponse normalisée:', reponseNormalisee);
+    console.log('Solution normalisée:', solutionNormalisee);
+
     // Vérification exacte ou similaire
     if (reponseNormalisee === solutionNormalisee || levenshteinDistance(reponseNormalisee, solutionNormalisee) <= 2) {
       setShowGoodAnswer(true);
@@ -196,6 +199,7 @@ function EnigmePage() {
     if (forIndice) {
       await demanderIndice(transcript);
     } else {
+      console.log('Transcript:', transcript); // Ajoutez cette ligne
       verifierReponse(transcript);
     }
   };
