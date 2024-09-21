@@ -106,18 +106,19 @@ function EnigmePage() {
     }
   );
 
-  const verifierReponse = useCallback((reponseUtilisateur) => {
-    // Fonction pour nettoyer et normaliser les réponses
-    const normaliserReponse = (texte) => {
-      return texte.toLowerCase()
-        .replace(/[.,!?]/g, '') // Supprime la ponctuation
-        .replace(/^(le |la |les |un |une |des )/g, '') // Supprime les articles au début
-        .trim(); // Supprime les espaces au début et à la fin
-    };
+  const normaliserReponse = useCallback((texte) => {
+    return texte.toLowerCase()
+      .replace(/[.,!?]/g, '') // Supprime la ponctuation
+      .replace(/^(le |la |les |l'|un |une |des |d')/g, '') // Supprime les articles au début
+      .replace(/\s+/g, ' ') // Remplace les espaces multiples par un seul espace
+      .trim(); // Supprime les espaces au début et à la fin
+  }, []);
 
+  const verifierReponse = useCallback((reponseUtilisateur) => {
     const reponseNormalisee = normaliserReponse(reponseUtilisateur);
     const solutionNormalisee = normaliserReponse(solution);
 
+    console.log('Réponse utilisateur:', reponseUtilisateur);
     console.log('Réponse normalisée:', reponseNormalisee);
     console.log('Solution normalisée:', solutionNormalisee);
 
@@ -143,7 +144,7 @@ function EnigmePage() {
       setTimeout(() => setShowWrongAnswer(false), 3000);
     }
     setReponse('');
-  }, [solution, enigmeResolue, xp, lireTexte]);
+  }, [solution, enigmeResolue, xp, lireTexte, normaliserReponse]);
 
   const demanderIndice = useCallback(async (question = "") => {
     try {
@@ -199,7 +200,7 @@ function EnigmePage() {
     if (forIndice) {
       await demanderIndice(transcript);
     } else {
-      console.log('Transcript:', transcript); // Ajoutez cette ligne
+      console.log('Transcript:', transcript);
       verifierReponse(transcript);
     }
   };
