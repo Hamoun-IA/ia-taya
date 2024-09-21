@@ -12,7 +12,7 @@ import { useQuery } from 'react-query';
 import { levenshteinDistance } from '../utils/stringUtils';
 import '../styles/buttontalk.css';
 import '../styles/EnigmePage.css';
-import { Brain, Lightbulb, HelpCircle, MessageCircle, Eye } from "lucide-react";
+import { Brain, Lightbulb, HelpCircle, MessageCircle, Eye, Mic } from "lucide-react";
 import Glitter from './Glitter';
 
 function EnigmePage() {
@@ -288,24 +288,13 @@ function EnigmePage() {
             Vérifier
           </button>
           
-          <div className="button-container">
-            <input 
-              type="checkbox" 
-              id="micButtonAnswer" 
-              className="mic-checkbox"
-              checked={isRecordingAnswer}
-              onChange={() => toggleRecording(false)}
-            />
-            <label htmlFor="micButtonAnswer" className="mic-button">
-              <div className='mic'>
-                <div className='mic-button-loader'></div>
-                <div className="mic-base"></div>
-              </div>
-              <div className="button-message">
-                <span><br/>RÉPONSE</span>
-              </div>
-            </label>
-          </div>
+          <button
+            onClick={() => toggleRecording(false)}
+            className={`flex-1 ${isRecordingAnswer ? 'bg-red-500 animate-pulse' : 'bg-blue-400 hover:bg-blue-500'} text-white font-bold py-2 px-4 rounded-full flex items-center justify-center transition-colors duration-300`}
+          >
+            <Mic className={`h-6 w-6 mr-2 ${isRecordingAnswer ? 'animate-bounce' : ''}`} />
+            {isRecordingAnswer ? 'Parle...' : 'Parler'}
+          </button>
         </div>
         
         <button 
@@ -334,24 +323,13 @@ function EnigmePage() {
             Demander un indice
           </button>
           
-          <div className="button-container">
-            <input 
-              type="checkbox" 
-              id="micButtonIndice" 
-              className="mic-checkbox"
-              checked={isRecordingIndice}
-              onChange={() => toggleRecording(true)}
-            />
-            <label htmlFor="micButtonIndice" className="mic-button">
-              <div className='mic'>
-                <div className='mic-button-loader'></div>
-                <div className="mic-base"></div>
-              </div>
-              <div className="button-message">
-                <span><br/>INDICE</span>
-              </div>
-            </label>
-          </div>
+          <button
+            onClick={() => toggleRecording(true)}
+            className={`flex-1 ${isRecordingIndice ? 'bg-red-500 animate-pulse' : 'bg-green-400 hover:bg-green-500'} text-white font-bold py-2 px-4 rounded-full flex items-center justify-center transition-colors duration-300`}
+          >
+            <Mic className={`h-6 w-6 mr-2 ${isRecordingIndice ? 'animate-bounce' : ''}`} />
+            {isRecordingIndice ? 'Parle...' : 'Parler'}
+          </button>
         </div>
         {indice && (
           <p className="text-xl font-semibold text-white bg-purple-500 p-2 rounded-lg mt-4">
