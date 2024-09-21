@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Brain, Lightbulb, AlignJustify, HelpCircle, MessageCircle, Settings } from "lucide-react";
+import Glitter from './Glitter';
 
 function MainMenu() {
   const [selectedButton, setSelectedButton] = useState(null);
@@ -33,7 +34,8 @@ function MainMenu() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-400 to-blue-500 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-b from-purple-400 to-blue-500 flex flex-col items-center justify-center p-4 overflow-hidden">
+      <Glitter />
       <h1 className={`text-7xl font-bold ${titleColor} mb-8 text-center animate-wobble font-comic-sans tracking-wide transition-colors duration-500`}>
         MENU TAYA
       </h1>
