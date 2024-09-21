@@ -12,6 +12,8 @@ import { useQuery } from 'react-query';
 import { levenshteinDistance } from '../utils/stringUtils';
 import '../styles/buttontalk.css';
 import '../styles/EnigmePage.css';
+import { Brain, Lightbulb, HelpCircle, MessageCircle, Eye } from "lucide-react";
+import Glitter from './Glitter';
 
 function EnigmePage() {
   const [enigme, setEnigme] = useState('');
@@ -238,81 +240,81 @@ function EnigmePage() {
   ];
 
   return (
-    <div className="enigme-page">
-      <h2>Énigme</h2>
-      <p>Niveau : {level} | XP : {xp}</p>
-      <select value={difficulte} onChange={(e) => setDifficulte(e.target.value)}>
+    <div className="min-h-screen bg-gradient-to-b from-purple-400 to-blue-500 flex flex-col items-center justify-center p-4 overflow-hidden">
+      <Glitter />
+      <h1 className={`text-5xl font-bold text-white mb-8 text-center animate-wobble font-comic-sans tracking-wide transition-colors duration-500`}>
+        ÉNIGME
+      </h1>
+      
+      <p className="text-xl font-semibold text-white mb-4">Niveau : {level} | XP : {xp}</p>
+      
+      <select 
+        value={difficulte} 
+        onChange={(e) => setDifficulte(e.target.value)}
+        className="w-full max-w-md mb-4 p-2 text-xl font-semibold bg-yellow-400 text-yellow-900 rounded-full"
+      >
         {options.map(option => (
           <option key={option.value} value={option.value}>{option.label}</option>
         ))}
       </select>
       
-      <div className="enigme">
-        <p>{enigme}</p>
-        <button onClick={lireEnigme}>Lire l'énigme</button>
+      <div className="w-full max-w-md bg-white bg-opacity-20 rounded-lg p-6 mb-4">
+        <p className="text-2xl font-bold text-white mb-4">{enigme}</p>
+        <button 
+          onClick={lireEnigme}
+          className="w-full bg-green-400 hover:bg-green-500 text-green-900 font-bold py-2 px-4 rounded-full flex items-center justify-center"
+        >
+          <MessageCircle className="h-6 w-6 mr-2" />
+          Lire l'énigme
+        </button>
       </div>
 
-      <div className="reponse-section">
+      <div className="w-full max-w-md space-y-4">
         <input 
           type="text" 
           value={reponse} 
           onChange={(e) => setReponse(e.target.value)} 
           placeholder="Votre réponse"
+          className="w-full p-2 text-xl font-semibold bg-blue-400 text-blue-900 rounded-full placeholder-blue-700"
         />
         
-        <div className="button-container">
-          <input 
-            type="checkbox" 
-            id="micButtonAnswer" 
-            className="mic-checkbox"
-            checked={isRecordingAnswer}
-            onChange={() => toggleRecording(false)}
-          />
-          <label htmlFor="micButtonAnswer" className="mic-button">
-            <div className='mic'>
-              <div className='mic-button-loader'></div>
-              <div className="mic-base"></div>
-            </div>
-            <div className="button-message">
-              <span><br/>RÉPONSE</span>
-            </div>
-          </label>
-        </div>
+        <button 
+          onClick={() => verifierReponse(reponse)}
+          className="w-full bg-pink-400 hover:bg-pink-500 text-pink-900 font-bold py-2 px-4 rounded-full flex items-center justify-center"
+        >
+          <Brain className="h-6 w-6 mr-2" />
+          Vérifier la réponse
+        </button>
         
-        <button onClick={revelerReponse}>Voir la réponse</button>
-        {showSolution && <p className="solution">Solution : {solution}</p>}
+        <button 
+          onClick={revelerReponse}
+          className="w-full bg-red-400 hover:bg-red-500 text-red-900 font-bold py-2 px-4 rounded-full flex items-center justify-center"
+        >
+          <Eye className="h-6 w-6 mr-2" />
+          Voir la réponse
+        </button>
+        
+        {showSolution && (
+          <p className="text-xl font-bold text-white bg-green-500 p-2 rounded-lg">
+            Solution : {solution}
+          </p>
+        )}
       </div>
 
-      <div className="indice-section">
-        <h3>Demander un indice</h3>
-        <input 
-          type="text" 
-          value={indiceInput} 
-          onChange={(e) => setIndiceInput(e.target.value)} 
-          placeholder="Posez une question pour obtenir un indice"
-          readOnly
-        />
-        <button onClick={() => demanderIndice()}>Demander un indice général</button>
-        <p>Indice : {indice}</p>
-        
-        <div className="button-container">
-          <input 
-            type="checkbox" 
-            id="micButtonIndice" 
-            className="mic-checkbox"
-            checked={isRecordingIndice}
-            onChange={() => toggleRecording(true)}
-          />
-          <label htmlFor="micButtonIndice" className="mic-button">
-            <div className='mic'>
-              <div className='mic-button-loader'></div>
-              <div className="mic-base"></div>
-            </div>
-            <div className="button-message">
-              <span><br/>INDICE</span>
-            </div>
-          </label>
-        </div>
+      <div className="w-full max-w-md mt-8">
+        <h3 className="text-2xl font-bold text-white mb-4">Demander un indice</h3>
+        <button 
+          onClick={() => demanderIndice()}
+          className="w-full bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-bold py-2 px-4 rounded-full flex items-center justify-center"
+        >
+          <Lightbulb className="h-6 w-6 mr-2" />
+          Demander un indice
+        </button>
+        {indice && (
+          <p className="text-xl font-semibold text-white bg-purple-500 p-2 rounded-lg mt-4">
+            Indice : {indice}
+          </p>
+        )}
       </div>
 
       {isLoading && <div className="lottie-animation"><LottieAnimation animationData={loaderAnimation} width={200} height={200} /></div>}
