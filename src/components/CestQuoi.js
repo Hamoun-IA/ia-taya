@@ -4,6 +4,7 @@ import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognitio
 import { useSpeechSynthesis } from 'react-speech-kit';
 import { Mic, MicOff } from "lucide-react";
 import Button from './Button';
+import Glitter from './Glitter'; // Ajout de cette ligne
 
 const SYSTEM_PROMPT = `Tu es un assistant virtuel conçu pour expliquer des concepts à des enfants de 6 ans. 
 Ton rôle est de répondre à leurs questions de manière très simple, avec des mots qu'un enfant de 6 ans peut comprendre. 
