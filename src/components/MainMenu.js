@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Brain, Lightbulb, AlignJustify, HelpCircle, MessageCircle, Settings } from "lucide-react";
 import Glitter from './Glitter';
@@ -17,12 +17,12 @@ function MainMenu() {
     return () => clearInterval(intervalId);
   }, []);
 
-  const handleButtonClick = (buttonName) => {
+  const handleButtonClick = useCallback((buttonName) => {
     setSelectedButton(buttonName);
     console.log(`${buttonName} cliqué`);
-  };
+  }, []);
 
-  const ButtonLink = ({ to, className, onClick, icon, children }) => (
+  const ButtonLink = useCallback(({ to, className, onClick, icon, children }) => (
     <Link
       to={to}
       className={`w-full h-16 text-xl font-semibold transform transition duration-200 hover:scale-105 active:scale-95 animate-bounce-in rounded-full flex items-center justify-center ${className} ${selectedButton === children ? 'ring-4 ring-white' : ''}`}
@@ -31,7 +31,7 @@ function MainMenu() {
       {icon}
       <span className="ml-2">{children}</span>
     </Link>
-  );
+  ), [selectedButton]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-400 to-blue-500 flex flex-col items-center justify-center p-4 overflow-hidden">
