@@ -1,9 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Brain, Lightbulb, AlignJustify, HelpCircle, MessageCircle, Settings } from "lucide-react";
 
 function MainMenu() {
   const [selectedButton, setSelectedButton] = useState(null);
+  const [titleColor, setTitleColor] = useState('text-white');
+
+  useEffect(() => {
+    const colors = ['text-red-500', 'text-blue-500', 'text-green-500', 'text-yellow-500', 'text-purple-500', 'text-pink-500'];
+    const changeColor = () => {
+      const randomColor = colors[Math.floor(Math.random() * colors.length)];
+      setTitleColor(randomColor);
+    };
+    const intervalId = setInterval(changeColor, 2000);
+    return () => clearInterval(intervalId);
+  }, []);
 
   const handleButtonClick = (buttonName) => {
     setSelectedButton(buttonName);
@@ -23,7 +34,7 @@ function MainMenu() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-400 to-blue-500 flex flex-col items-center justify-center p-4">
-      <h1 className="text-5xl font-bold text-white mb-8 text-center animate-wobble font-comic-sans tracking-wide">
+      <h1 className={`text-7xl font-bold ${titleColor} mb-8 text-center animate-wobble font-comic-sans tracking-wide transition-colors duration-500`}>
         MENU TAYA
       </h1>
       
