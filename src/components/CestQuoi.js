@@ -159,35 +159,37 @@ function CestQuoiComponent() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-400 to-purple-500 p-4">
-      <div className="w-full max-w-md bg-white rounded-xl shadow-xl overflow-hidden">
-        <div className="p-4">
-          <h2 className="text-2xl font-bold text-center mb-4 text-blue-600">C'est quoi ?</h2>
-          <canvas 
-            ref={canvasRef} 
-            width={300} 
-            height={100} 
-            className="w-full h-24 bg-gray-100 rounded-lg"
-          />
-          <div className="mt-4 p-3 bg-gray-100 rounded-lg max-h-[300px] overflow-y-auto">
-            {messages.map((message, index) => (
-              <div key={index} className={`mb-2 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
-                <span className={`inline-block p-2 rounded-lg ${message.role === 'user' ? 'bg-blue-200' : 'bg-green-200'}`}>
-                  {message.content}
-                </span>
-              </div>
-            ))}
-            <div ref={messagesEndRef} />
-          </div>
-          <div className="mt-4 flex justify-center">
-            <Button 
-              type="button" 
-              className={`p-4 rounded-full ${isRecording ? 'bg-red-500' : 'bg-blue-500'} text-white`}
-              onClick={toggleRecording}
-            >
-              {isRecording ? <MicOff className="w-8 h-8" /> : <Mic className="w-8 h-8" />}
-            </Button>
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-purple-400 to-blue-500 flex flex-col items-center justify-center p-4 overflow-hidden">
+      <Glitter />
+      <h1 className={`text-5xl font-bold text-yellow-300 mb-8 text-center animate-bounce font-comic-sans tracking-wide`}>
+        C'est quoi ?
+      </h1>
+      
+      <div className="w-full max-w-md bg-white rounded-3xl shadow-xl overflow-hidden p-6">
+        <canvas 
+          ref={canvasRef} 
+          width={300} 
+          height={100} 
+          className="w-full h-24 bg-gray-100 rounded-2xl mb-4"
+        />
+        <div className="mt-4 p-3 bg-gray-100 rounded-2xl max-h-[300px] overflow-y-auto">
+          {messages.map((message, index) => (
+            <div key={index} className={`mb-2 ${message.role === 'user' ? 'text-right' : 'text-left'}`}>
+              <span className={`inline-block p-2 rounded-xl ${message.role === 'user' ? 'bg-blue-200' : 'bg-green-200'}`}>
+                {message.content}
+              </span>
+            </div>
+          ))}
+          <div ref={messagesEndRef} />
+        </div>
+        <div className="mt-6 flex justify-center">
+          <button 
+            type="button" 
+            className={`p-6 rounded-full ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-blue-500'} text-white transform transition duration-200 hover:scale-110 active:scale-95`}
+            onClick={toggleRecording}
+          >
+            {isRecording ? <MicOff className="w-12 h-12" /> : <Mic className="w-12 h-12" />}
+          </button>
         </div>
       </div>
     </div>
