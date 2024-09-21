@@ -47,6 +47,7 @@ function EnigmePage() {
   }, [speak, voices]);
 
   const genererEnigme = useCallback(async () => {
+    console.log('API Key:', process.env.REACT_APP_OPENAI_API_KEY); // Ajoutez cette ligne
     try {
       const response = await axios.post('https://api.openai.com/v1/chat/completions', {
         model: "gpt-4o-mini",
@@ -278,13 +279,34 @@ function EnigmePage() {
           className="w-full p-2 text-xl font-semibold bg-blue-400 text-blue-900 rounded-full placeholder-blue-700"
         />
         
-        <button 
-          onClick={() => verifierReponse(reponse)}
-          className="w-full bg-pink-400 hover:bg-pink-500 text-pink-900 font-bold py-2 px-4 rounded-full flex items-center justify-center"
-        >
-          <Brain className="h-6 w-6 mr-2" />
-          Vérifier la réponse
-        </button>
+        <div className="flex space-x-2">
+          <button 
+            onClick={() => verifierReponse(reponse)}
+            className="flex-1 bg-pink-400 hover:bg-pink-500 text-pink-900 font-bold py-2 px-4 rounded-full flex items-center justify-center"
+          >
+            <Brain className="h-6 w-6 mr-2" />
+            Vérifier
+          </button>
+          
+          <div className="button-container">
+            <input 
+              type="checkbox" 
+              id="micButtonAnswer" 
+              className="mic-checkbox"
+              checked={isRecordingAnswer}
+              onChange={() => toggleRecording(false)}
+            />
+            <label htmlFor="micButtonAnswer" className="mic-button">
+              <div className='mic'>
+                <div className='mic-button-loader'></div>
+                <div className="mic-base"></div>
+              </div>
+              <div className="button-message">
+                <span><br/>RÉPONSE</span>
+              </div>
+            </label>
+          </div>
+        </div>
         
         <button 
           onClick={revelerReponse}
@@ -303,13 +325,34 @@ function EnigmePage() {
 
       <div className="w-full max-w-md mt-8">
         <h3 className="text-2xl font-bold text-white mb-4">Demander un indice</h3>
-        <button 
-          onClick={() => demanderIndice()}
-          className="w-full bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-bold py-2 px-4 rounded-full flex items-center justify-center"
-        >
-          <Lightbulb className="h-6 w-6 mr-2" />
-          Demander un indice
-        </button>
+        <div className="flex space-x-2">
+          <button 
+            onClick={() => demanderIndice()}
+            className="flex-1 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 font-bold py-2 px-4 rounded-full flex items-center justify-center"
+          >
+            <Lightbulb className="h-6 w-6 mr-2" />
+            Demander un indice
+          </button>
+          
+          <div className="button-container">
+            <input 
+              type="checkbox" 
+              id="micButtonIndice" 
+              className="mic-checkbox"
+              checked={isRecordingIndice}
+              onChange={() => toggleRecording(true)}
+            />
+            <label htmlFor="micButtonIndice" className="mic-button">
+              <div className='mic'>
+                <div className='mic-button-loader'></div>
+                <div className="mic-base"></div>
+              </div>
+              <div className="button-message">
+                <span><br/>INDICE</span>
+              </div>
+            </label>
+          </div>
+        </div>
         {indice && (
           <p className="text-xl font-semibold text-white bg-purple-500 p-2 rounded-lg mt-4">
             Indice : {indice}
