@@ -28,3 +28,10 @@ code {
     opacity: 0;
   }
 }
+
+.bg-yellow-400 { background-color: rgba(250, 204, 21, 0.2); }
+.bg-green-400 { background-color: rgba(74, 222, 128, 0.2); }
+.bg-red-400 { background-color: rgba(248, 113, 113, 0.2); }
+.bg-blue-400 { background-color: rgba(96, 165, 250, 0.2); }
+.bg-pink-400 { background-color: rgba(244, 114, 182, 0.2); }
+.bg-gray-300 { background-color: rgba(209, 213, 219, 0.2); }

@@ -1,32 +1,28 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Brain, Lightbulb, AlignJustify, HelpCircle, MessageCircle, Settings } from "lucide-react";
 import Glitter from './Glitter';
 
 function MainMenu() {
   const [selectedButton, setSelectedButton] = useState(null);
-  const [titleColor, setTitleColor] = useState('text-white');
-
-  useEffect(() => {
-    const colors = ['text-red-500', 'text-blue-500', 'text-green-500', 'text-yellow-500', 'text-purple-500', 'text-pink-500'];
-    const changeColor = () => {
-      const randomColor = colors[Math.floor(Math.random() * colors.length)];
-      setTitleColor(randomColor);
-    };
-    const intervalId = setInterval(changeColor, 2000);
-    return () => clearInterval(intervalId);
-  }, []);
+  const [hoverColor, setHoverColor] = useState('');
 
   const handleButtonClick = useCallback((buttonName) => {
     setSelectedButton(buttonName);
     console.log(`${buttonName} cliqué`);
   }, []);
 
-  const ButtonLink = useCallback(({ to, className, onClick, icon, children }) => (
+  const handleButtonHover = useCallback((color) => {
+    setHoverColor(color);
+  }, []);
+
+  const ButtonLink = useCallback(({ to, className, onClick, onHover, icon, children }) => (
     <Link
       to={to}
       className={`w-full h-16 text-xl font-semibold transform transition duration-200 hover:scale-105 active:scale-95 animate-bounce-in rounded-full flex items-center justify-center ${className} ${selectedButton === children ? 'ring-4 ring-white' : ''}`}
       onClick={() => onClick(children)}
+      onMouseEnter={() => onHover(className.split(' ')[0])}
+      onMouseLeave={() => onHover('')}
     >
       {icon}
       <span className="ml-2">{children}</span>
@@ -34,9 +30,9 @@ function MainMenu() {
   ), [selectedButton]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-400 to-blue-500 flex flex-col items-center justify-center p-4 overflow-hidden">
+    <div className={`min-h-screen bg-gradient-to-b from-purple-400 to-blue-500 flex flex-col items-center justify-center p-4 overflow-hidden transition-colors duration-500 ${hoverColor}`}>
       <Glitter />
-      <h1 className={`text-7xl font-bold ${titleColor} mb-8 text-center animate-wobble font-comic-sans tracking-wide transition-colors duration-500`}>
+      <h1 className="text-7xl font-bold text-white mb-8 text-center animate-wobble font-comic-sans tracking-wide">
         MENU TAYA
       </h1>
       
@@ -45,6 +41,7 @@ function MainMenu() {
           to="/quiz"
           className="bg-yellow-400 hover:bg-yellow-500 text-yellow-900"
           onClick={handleButtonClick}
+          onHover={handleButtonHover}
           icon={<Brain className="h-6 w-6" />}
         >
           Quiz
@@ -54,6 +51,7 @@ function MainMenu() {
           to="/enigme"
           className="bg-green-400 hover:bg-green-500 text-green-900"
           onClick={handleButtonClick}
+          onHover={handleButtonHover}
           icon={<Lightbulb className="h-6 w-6" />}
         >
           Enigme
@@ -63,6 +61,7 @@ function MainMenu() {
           to="/syllabes"
           className="bg-red-400 hover:bg-red-500 text-red-900"
           onClick={handleButtonClick}
+          onHover={handleButtonHover}
           icon={<AlignJustify className="h-6 w-6" />}
         >
           Syllabes
@@ -72,6 +71,7 @@ function MainMenu() {
           to="/cest-quoi"
           className="bg-blue-400 hover:bg-blue-500 text-blue-900"
           onClick={handleButtonClick}
+          onHover={handleButtonHover}
           icon={<HelpCircle className="h-6 w-6" />}
         >
           C'est quoi ?
@@ -81,6 +81,7 @@ function MainMenu() {
           to="/parler"
           className="bg-pink-400 hover:bg-pink-500 text-pink-900"
           onClick={handleButtonClick}
+          onHover={handleButtonHover}
           icon={<MessageCircle className="h-6 w-6" />}
         >
           Parler
@@ -90,6 +91,7 @@ function MainMenu() {
           to="/options"
           className="bg-gray-300 hover:bg-gray-400 text-gray-800"
           onClick={handleButtonClick}
+          onHover={handleButtonHover}
           icon={<Settings className="h-6 w-6" />}
         >
           Options
