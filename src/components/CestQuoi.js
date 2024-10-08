@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { useSpeechSynthesis } from 'react-speech-kit';
+import { useSpeechRecognition } from 'react-speech-recognition';
 import { Mic, MicOff } from "lucide-react";
 import Button from './Button';
 import Glitter from './Glitter'; // Ajout de cette ligne
@@ -24,14 +23,22 @@ function CestQuoiComponent() {
   const sourceRef = useRef(null);
   const animationRef = useRef(null);
 
-  const { transcript, resetTranscript, browserSupportsSpeechRecognition } = useSpeechRecognition();
-  const { speak, speaking, cancel, voices } = useSpeechSynthesis();
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+    isMicrophoneAvailable,
+    SpeechRecognition
+  } = useSpeechRecognition();
 
   const lireTexte = useCallback((texte) => {
-    const voixFrancaise = voices.find(voice => voice.lang === 'fr-FR');
-    speak({ text: texte, voice: voixFrancaise, onEnd: () => setIsPlaying(false) });
+    const utterance = new SpeechSynthesisUtterance(texte);
+    utterance.lang = 'fr-FR';
+    utterance.onend = () => setIsPlaying(false);
+    window.speechSynthesis.speak(utterance);
     setIsPlaying(true);
-  }, [speak, voices]);
+  }, []);
 
   const initAudio = useCallback(() => {
     if (!audioContextRef.current) {
@@ -147,16 +154,16 @@ function CestQuoiComponent() {
   };
 
   const toggleRecording = () => {
-    if (isRecording) {
+    if (listening) {
       SpeechRecognition.stopListening();
     } else {
       SpeechRecognition.startListening({ continuous: true, language: 'fr-FR' });
     }
-    setIsRecording(!isRecording);
+    setIsRecording(!listening);
   };
 
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Le navigateur ne supporte pas la reconnaissance vocale.</span>;
+  if (!browserSupportsSpeechRecognition || !isMicrophoneAvailable) {
+    return <span>Le navigateur ne supporte pas la reconnaissance vocale ou le microphone n'est pas disponible.</span>;
   }
 
   return (

@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { useUser } from '../context/UserContext';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-import { useSpeechSynthesis } from 'react-speech-kit';
+import { useSpeechRecognition } from 'react-speech-recognition';
 import LottieAnimation from './LottieAnimation';
 import goodAnswerAnimation from '../animations/Animation - GoodAnswer.json';
 import wrongAnswerAnimation from '../animations/Animation - WrongAnswer.json';
@@ -36,15 +35,16 @@ function EnigmePage() {
     transcript,
     listening,
     resetTranscript,
-    browserSupportsSpeechRecognition
+    browserSupportsSpeechRecognition,
+    isMicrophoneAvailable,
+    SpeechRecognition
   } = useSpeechRecognition();
 
-  const { speak, voices } = useSpeechSynthesis();
-
   const lireTexte = useCallback((texte) => {
-    const voixFrancaise = voices.find(voice => voice.lang === 'fr-FR');
-    speak({ text: texte, voice: voixFrancaise });
-  }, [speak, voices]);
+    const utterance = new SpeechSynthesisUtterance(texte);
+    utterance.lang = 'fr-FR';
+    window.speechSynthesis.speak(utterance);
+  }, []);
 
   const genererEnigme = useCallback(async () => {
     console.log('API Key:', process.env.REACT_APP_OPENAI_API_KEY); // Ajoutez cette ligne
@@ -172,36 +172,18 @@ function EnigmePage() {
   const toggleRecording = (forIndice = false) => {
     if (forIndice) {
       if (isRecordingIndice) {
-        stopRecording(true);
+        SpeechRecognition.stopListening();
       } else {
-        startRecording(true);
+        SpeechRecognition.startListening({ continuous: true, language: 'fr-FR' });
       }
       setIsRecordingIndice(!isRecordingIndice);
     } else {
       if (isRecordingAnswer) {
-        stopRecording(false);
+        SpeechRecognition.stopListening();
       } else {
-        startRecording(false);
+        SpeechRecognition.startListening({ continuous: true, language: 'fr-FR' });
       }
       setIsRecordingAnswer(!isRecordingAnswer);
-    }
-  };
-
-  const startRecording = (forIndice = false) => {
-    resetTranscript();
-    setIsListeningForIndice(forIndice);
-    SpeechRecognition.startListening({ continuous: true, language: 'fr-FR' });
-  };
-
-  const stopRecording = async (forIndice = false) => {
-    SpeechRecognition.stopListening();
-    setIsListeningForIndice(false);
-    
-    if (forIndice) {
-      await demanderIndice(transcript);
-    } else {
-      console.log('Transcript:', transcript);
-      verifierReponse(transcript);
     }
   };
 
@@ -222,8 +204,9 @@ function EnigmePage() {
   }, [needNewEnigme, refetch]);
 
   const lireEnigme = () => {
-    const voixFrancaise = voices.find(voice => voice.lang === 'fr-FR');
-    speak({ text: enigme, voice: voixFrancaise });
+    const utterance = new SpeechSynthesisUtterance(enigme);
+    utterance.lang = 'fr-FR';
+    window.speechSynthesis.speak(utterance);
   };
 
   const revelerReponse = () => {
@@ -235,8 +218,8 @@ function EnigmePage() {
     }, 5000); // Cache la réponse et génère une nouvelle énigme après 5 secondes
   };
 
-  if (!browserSupportsSpeechRecognition) {
-    return <span>Le navigateur ne supporte pas la reconnaissance vocale.</span>;
+  if (!browserSupportsSpeechRecognition || !isMicrophoneAvailable) {
+    return <span>Le navigateur ne supporte pas la reconnaissance vocale ou le microphone n'est pas disponible.</span>;
   }
 
   const options = [

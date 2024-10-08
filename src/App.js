@@ -7,6 +7,8 @@ import './App.css';
 const MainMenu = lazy(() => import('./components/MainMenu'));
 const EnigmePage = lazy(() => import('./components/EnigmePage'));
 const CestQuoi = lazy(() => import('./components/CestQuoi')); // Ceci importera le composant mémorisé par défaut
+// Modifiez cette ligne pour inclure l'extension .tsx
+const CharacterSelection = lazy(() => import('./components/character-selection.tsx'));
 
 // Créez une instance de QueryClient
 const queryClient = new QueryClient();
@@ -22,6 +24,7 @@ function App() {
                 <Route path="/" element={<MainMenu />} />
                 <Route path="/enigme" element={<EnigmePage />} />
                 <Route path="/cest-quoi" element={<CestQuoi />} />
+                <Route path="/character-selection" element={<CharacterSelection />} />
               </Routes>
             </Suspense>
           </div>

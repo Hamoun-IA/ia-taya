@@ -2,15 +2,21 @@ import React, { useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Brain, Lightbulb, AlignJustify, HelpCircle, MessageCircle, Settings } from "lucide-react";
 import Glitter from './Glitter';
+import { useNavigate } from 'react-router-dom';
 
 function MainMenu() {
   const [selectedButton, setSelectedButton] = useState(null);
   const [hoverColor, setHoverColor] = useState('');
 
+  const navigate = useNavigate();
+
   const handleButtonClick = useCallback((buttonName) => {
     setSelectedButton(buttonName);
     console.log(`${buttonName} cliqué`);
-  }, []);
+    if (buttonName === 'Parler') {
+      navigate('/character-selection');
+    }
+  }, [navigate]);
 
   const handleButtonHover = useCallback((color) => {
     setHoverColor(color);
@@ -78,7 +84,7 @@ function MainMenu() {
         </ButtonLink>
         
         <ButtonLink 
-          to="/parler"
+          to="/character-selection"
           className="bg-pink-400 hover:bg-pink-500 text-pink-900"
           onClick={handleButtonClick}
           onHover={handleButtonHover}
