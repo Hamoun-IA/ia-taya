@@ -38,8 +38,10 @@ function MainMenu() {
   return (
     <div className={`min-h-screen bg-gradient-to-b from-purple-400 to-blue-500 flex flex-col items-center justify-center p-4 overflow-hidden transition-colors duration-500 ${hoverColor}`}>
       <Glitter />
-      <h1 className="text-7xl font-bold text-white mb-8 text-center animate-wobble font-comic-sans tracking-wide">
-        MENU TAYA
+      <h1 className="text-7xl font-bold mb-8 text-center animate-wobble font-comic-sans tracking-wide">
+        <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-purple-600 animate-pulse">
+          MENU TAYA
+        </span>
       </h1>
       
       <div className="space-y-4 w-full max-w-md">
